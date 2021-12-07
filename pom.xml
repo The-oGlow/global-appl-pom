@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>global-pom</artifactId>
+        <groupId>com.glowa-net.maven.parent</groupId>
+        <version>2-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.glowa_net.maven</groupId>
+    <artifactId>global-appl-pom</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Global Application POM</name>
+    <description>The main pom for all my maven artifacts.</description>
+
+    <scm>
+        <connection>scm:git:git://gitlab.com/ollily/global-appl-pom.git</connection>
+        <developerConnection>scm:git:git@gitlab.com:ollily/global-appl-pom.git</developerConnection>
+    </scm>
+
+    <properties>
+        <!-- Gitlab Properties -->
+        <project.env.CI_PROJECT_ID>???</project.env.CI_PROJECT_ID>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>coding.central</id>
+            <name>Central is the 1st in row.</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
+        <repository>
+            <id>coding.read</id>
+            <name>CoDinG Group</name>
+            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>interval:30</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>apache.snapshots</id>
+            <url>https://repository.apache.org/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>coding.read</id>
+            <name>CoDinG Group</name>
+            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <profiles>
+        <!-- -->
+        <profile>
+            <id>addMoreRepos</id>
+            <repositories>
+                <repository>
+                    <id>zzzz.jboss</id>
+                    <name>JBoss Repository</name>
+                    <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+                </repository>
+                <repository>
+                    <id>zzzz.jboss-group</id>
+                    <name>JBoss Public Group</name>
+                    <url>https://repository.jboss.org/nexus/content/groups/public</url>
+                </repository>
+            </repositories>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>build-javadoc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <failOnWarnings>false</failOnWarnings>
+                            <additionalOptions>-Xdoclint:none</additionalOptions>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                    <goal>test-jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>build-signer</id>
+            <properties>
+                <!--suppress UnresolvedMavenProperty -->
+                <sign.keystore>${env.SIGN_KEYSTORE}</sign.keystore>
+                <!--suppress UnresolvedMavenProperty -->
+                <sign.storepass>${env.SIGN_STOREPASS}</sign.storepass>
+                <!--suppress UnresolvedMavenProperty -->
+                <sign.alias>${env.SIGN_ALIAS}</sign.alias>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>09-generate-jar-sign-prepare</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <failFast>true</failFast>
+                                    <rules>
+                                        <requireProperty>
+                                            <property>clean.cleaned</property>
+                                            <message>Add life-cycle 'clean' when perfoming sign the jar!</message>
+                                        </requireProperty>
+                                        <requireFilesExist>
+                                            <message>This files must exists:
+                                                sign.keystore : ${sign.keystore}
+                                            </message>
+                                            <files>
+                                                <file>${sign.keystore}</file>
+                                            </files>
+                                        </requireFilesExist>
+                                        <requireProperty>
+                                            <property>sign.storepass</property>
+                                            <message>This variables must be set:
+                                                sign.storepass : ${sign.storepass}
+                                            </message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>sign.alias</property>
+                                            <message>This variables must be set:
+                                                sign.alias : ${sign.alias}
+                                            </message>
+                                        </requireProperty>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jarsigner-plugin</artifactId>
+                        <configuration>
+                            <keystore>${sign.keystore}</keystore>
+                            <storepass>${sign.storepass}</storepass>
+                            <alias>${sign.alias}</alias>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>80-generate-jar-sign</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <verbose>false</verbose>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>85-validate-jar-sign</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <verbose>false</verbose>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>build-testjar</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>test-jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>test-jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>license-header</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <configuration>
+                            <licenseName>apache_v2</licenseName>
+                            <roots>
+                                <root>src/main/java</root>
+                                <root>src/test/java</root>
+                            </roots>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                            <canUpdateCopyright>true</canUpdateCopyright>
+                            <canUpdateLicense>true</canUpdateLicense>
+                            <canUpdateDescription>true</canUpdateDescription>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>first</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>update-file-header</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>show-env</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-help-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>show-env</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>system</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

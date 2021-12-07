@@ -1,0 +1,12 @@
+= Introduction
+:title:XXXX
+:site_resource: ../resources
+include::{site_resource}/proj-common.adoc[opts=optional]
+
+== {doctitle}
+
+Lorem ipsum, etc.
+
+== Further Information
+
+Lorem ipsum, etc.

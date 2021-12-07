@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>${org.apache.maven.fluido.skin.version}</version>
+    </skin>
+    <bannerLeft>
+        <name>${project.name}</name>
+        <title>${project.name}</title>
+        <alt>${project.name}</alt>
+        <href>index.html</href>
+        <src>${this.site.image.logo.folder}/${this.site.project.logo.filename}</src>
+    </bannerLeft>
+    <bannerRight>
+        <name>${this.organization.name}</name>
+        <title>${this.organization.name}</title>
+        <alt>${this.organization.name}</alt>
+        <href>${this.organization.url}</href>
+        <src>${this.site.image.logo.folder}/${this.site.organization.logo.filename}</src>
+    </bannerRight>
+    <publishDate position="right"/>
+    <version position="right"/>
+    <body>
+        <links>
+            <item name="${this.organization.name}" title="${this.organization.name}" target="_blank"
+                  href="${this.organization.url}"/>
+        </links>
+        <breadcrumbs>
+            <item name="${project.name}" title="${project.description}" alt="${project.description}"
+                  href="index.html"/>
+        </breadcrumbs>
+        <menu name="Overview" inherit="true" inheritAsRef="true">
+            <item name="Introduction" href="index.html"/>
+            <item name="Usage" href="usage.html"/>
+            <item name="FAQ" title="FAQtitle" alt="FAQalt" collapse="true" href="faq.html"/>
+            <item name="License" href="licenses.html"/>
+            <item name="Report Issues" target="_blank" position="right"
+                  href="${project.issueManagement.url}" img="https://about.gitlab.com/ico/favicon-16x16.png"/>
+            <item name="Sitemap" href="sitemap.html"/>
+        </menu>
+        <menu ref="reports"/>
+        <menu ref="modules"/>
+    </body>
+    <poweredBy>
+        <logo name="${this.organization.name}" title="${this.organization.name}" alt="Logo" target="_blank"
+              href="${this.organization.url}" img="${this.site.image.logo.folder}/${this.site.organization.logo.filename}"/>
+    </poweredBy>
+    <custom>
+        <fluidoSkin>
+            <profile>production</profile>
+            <!-- Navigation -->
+            <topBarEnabled>false</topBarEnabled>
+            <sideBarEnabled>true</sideBarEnabled>
+            <topBarContainerStyle>width: 60%;</topBarContainerStyle>
+            <navBarStyle>navbar</navBarStyle>
+            <topBarIcon>
+                <name>${project.name}</name>
+                <title>${project.name}</title>
+                <alt>${project.name}</alt>
+                <width>25pt</width>
+                <href>index.html</href>
+            </topBarIcon>
+            <!-- Style -->
+            <leftColumnClass>span3</leftColumnClass>
+            <bodyColumnClass>span9</bodyColumnClass>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+            <copyrightClass>pull-right</copyrightClass>
+            <skipGenerationDate>true</skipGenerationDate>
+            <breadcrumbDivider>»</breadcrumbDivider>
+            <!-- Elements -->
+        </fluidoSkin>
+    </custom>
+</project>
