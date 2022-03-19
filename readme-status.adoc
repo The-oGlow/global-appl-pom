@@ -12,8 +12,8 @@ include::{site_resource}/proj-common.adoc[opts=optional]
 
 == Build Information
 
-{proj_vcsid_url}/-/pipelines[image:{proj_vcsid_url}/badges/master/pipeline.svg[GitLab-CI]]
-link:{proj_vcsid_url}/-/tags[image:{cmmn_badge_url}/release-latest-blue?logo=gitlab{cmmn_img_style}[Latest Tag]]
+{proj_vcsid_url}/-/pipelines[image:{proj_vcsid_url}/badges/master/pipeline.svg[title="GitLab-CI"]]
+{proj_vcsid_url}/-/releases[image:{proj_vcsid_url}/-/badges/release.svg[title="Latest Release"]]
 
 == Test Information
 
