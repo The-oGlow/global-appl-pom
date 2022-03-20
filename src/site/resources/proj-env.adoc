@@ -17,4 +17,4 @@
 :proj_group: com.glowa-net.maven.parent
 :proj_module: global-appl-pom
 :proj_version: [latest release]
-:proj_description: The base pom 4 everything. Use the child-pom's as parent 4 ur artifact.
+:proj_description: This is the pom you are using as parent 4 ur artifact.
