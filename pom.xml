@@ -7,7 +7,7 @@
     <parent>
         <artifactId>global-pom</artifactId>
         <groupId>com.glowa-net.maven.parent</groupId>
-        <version>23</version>
+        <version>3-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
@@ -96,22 +96,6 @@
     </pluginRepositories>
 
     <profiles>
-        <!-- -->
-        <profile>
-            <id>addMoreRepos</id>
-            <repositories>
-                <repository>
-                    <id>zzzz.jboss</id>
-                    <name>JBoss Repository</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
-                </repository>
-                <repository>
-                    <id>zzzz.jboss-group</id>
-                    <name>JBoss Public Group</name>
-                    <url>https://repository.jboss.org/nexus/content/groups/public</url>
-                </repository>
-            </repositories>
-        </profile>
         <!-- -->
         <profile>
             <id>build-javadoc</id>
@@ -287,27 +271,6 @@
                                 <phase>process-sources</phase>
                                 <goals>
                                     <goal>update-file-header</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- -->
-        <profile>
-            <id>show-env</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-help-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>show-env</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>system</goal>
                                 </goals>
                             </execution>
                         </executions>
