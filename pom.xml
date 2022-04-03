@@ -8,7 +8,7 @@
         <artifactId>global-pom</artifactId>
         <groupId>com.glowa-net.maven.parent</groupId>
         <version>3-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath>../global-pom</relativePath>
     </parent>
 
     <groupId>com.glowa-net.maven.parent</groupId>
@@ -16,87 +16,28 @@
     <version>3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <!-- Section Common -->
     <name>Global Application POM</name>
     <description>The main pom for all my maven artifacts.</description>
 
     <scm>
+        <!-- scm-connections are defined as constant -->
         <connection>scm:git:git://gitlab.com/ollily/global-appl-pom.git</connection>
         <developerConnection>scm:git:git@gitlab.com:ollily/global-appl-pom.git</developerConnection>
     </scm>
 
+    <!-- Section Properties -->
     <properties>
         <!-- Gitlab Properties -->
         <project.env.CI_PROJECT_ID>31930670</project.env.CI_PROJECT_ID>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>coding.central</id>
-            <name>Central is the 1st in row.</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </repository>
-        <repository>
-            <id>coding.read</id>
-            <name>CoDinG</name>
-            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <checksumPolicy>ignore</checksumPolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>apache.snapshots</id>
-            <name>Apache Schnappi</name>
-            <url>https://repository.apache.org/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>coding.central</id>
-            <name>Central is the 1st in row.</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>coding.read</id>
-            <name>CoDinG</name>
-            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
+    <!-- Section Profiles -->
     <profiles>
-        <!-- -->
+        <!--
+            Description     :   Generate the java api documentation
+            See             :   https://maven.apache.org/plugins/maven-javadoc-plugin/
+         -->
         <profile>
             <id>build-javadoc</id>
             <build>
@@ -123,9 +64,15 @@
                 </plugins>
             </build>
         </profile>
-        <!-- -->
+        <!--
+            Description     :   Signs the artifact
+            See             :   https://maven.apache.org/plugins/maven-jarsigner-plugin/
+            Syntax 1        :   mvn -Psign-jar clean [verify|install]
+            Syntax 2        :   mvn -Psign-jar,artifact-release clean deploy
+            Example 1       :   mvn -Psign-jar -DskipTests -DskipITs clean install
+         -->
         <profile>
-            <id>build-signer</id>
+            <id>sign-jar</id>
             <properties>
                 <!--suppress UnresolvedMavenProperty -->
                 <sign.keystore>${env.SIGN_KEYSTORE}</sign.keystore>
@@ -212,7 +159,9 @@
                 </plugins>
             </build>
         </profile>
-        <!-- -->
+        <!--
+            Description     :   Generate a separate jar for test classes
+         -->
         <profile>
             <id>build-testjar</id>
             <build>
@@ -244,7 +193,10 @@
                 </plugins>
             </build>
         </profile>
-        <!-- -->
+        <!--
+            Description     :   Adds a license text to every java class
+            See             :   https://www.mojohaus.org/license-maven-plugin/
+         -->
         <profile>
             <id>license-header</id>
             <build>

@@ -1,0 +1,20 @@
+== Signing Jar
+
+=== Pre-Requirements
+
+* Relates to profile `sign-jar`
+* see `global-pom\README.adoc#Generate Public Key
+
+=== Usage
+
+.Sign an artifact
+[source,shell script]
+----
+mvn -Psign-jar clean verify
+----
+
+.Sign & Deploy an artifact
+[source,shell script]
+----
+mvn -Psign-jar,artifact-release clean deploy
+----
