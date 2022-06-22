@@ -31,6 +31,7 @@
     <!-- Section Properties -->
     <properties>
         <!-- Gitlab Properties -->
+        <!-- This gitlab repository -->
         <project.env.CI_PROJECT_ID>31930670</project.env.CI_PROJECT_ID>
     </properties>
 
