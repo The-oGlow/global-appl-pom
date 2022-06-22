@@ -1,7 +1,7 @@
 // project settings (from pom-file)
 // user data
 :proj_user: ollily
-:proj_user_org: ollily
+:proj_user_org: the-oglow
 :proj_author: Oliver Glowa
 :proj_user_email: coding at glowa-net dot com
 :proj_vcs_url: https://gitlab.com
@@ -19,3 +19,6 @@
 :proj_module: global-appl-pom
 :proj_version: [latest release]
 :proj_description: This is the pom you are using as parent 4 ur artifact.
+:proj_id_codacy: 03181a5278ab4c39baeb115d5585e0b8
+:proj_id_coverity: -1
+:proj_id_openssf: -1
