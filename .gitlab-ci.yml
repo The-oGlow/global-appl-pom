@@ -65,7 +65,7 @@ cache:
 
 code_quality:
   artifacts:
-    paths: [ gl-code-quality-report.json ]
+    paths: [gl-code-quality-report.json]
   rules:
     - if: $CODE_QUALITY_DISABLED
       when: never
@@ -78,13 +78,14 @@ code_quality_html:
   variables:
     REPORT_FORMAT: html
   artifacts:
-    paths: [ gl-code-quality-report.html ]
+    paths: [gl-code-quality-report.html]
 
 sonarcloud:
   stage: analyze
   script:
     - mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_TEST_OPTS $MVN_OPTS_SONAR sonar:sonar
   allow_failure: true
+  needs: ["build"]
   rules:
     - if: $SONAR_DISABLED
       when: never
