@@ -4,7 +4,7 @@
     <skin>
         <groupId>org.apache.maven.skins</groupId>
         <artifactId>maven-fluido-skin</artifactId>
-        <version>${org.apache.maven.fluido.skin.version}</version>
+        <version>${org.apache.maven.skins.maven.fluido.skin.version}</version>
     </skin>
     <bannerLeft>
         <name>${project.name}</name>
