@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>global-pom</artifactId>
         <groupId>com.glowa-net.maven.parent</groupId>
+        <artifactId>global-pom</artifactId>
         <version>3-SNAPSHOT</version>
         <relativePath/>
     </parent>
@@ -17,25 +17,25 @@
     <packaging>pom</packaging>
 
     <!-- Section Common -->
+    <!-- ============================================== -->
     <name>Global Application POM</name>
     <description>The main pom for all my maven artifacts.</description>
 
     <scm>
         <!-- scm-connections are defined as constant -->
-        <connection>scm:git:https://gitlab.com/the-oglow/global-appl-pom.git</connection>
-        <developerConnection>scm:git:https://gitlab.com/the-oglow/global-appl-pom.git</developerConnection>
+        <connection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</connection>
+        <developerConnection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</developerConnection>
         <url>${project.env.CI_PROJECT_URL}</url>
         <tag>HEAD</tag>
     </scm>
 
     <!-- Section Properties -->
+    <!-- ============================================== -->
     <properties>
-        <!-- Gitlab Properties -->
-        <!-- This gitlab repository -->
-        <project.env.CI_PROJECT_ID>31930670</project.env.CI_PROJECT_ID>
     </properties>
 
     <!-- Section Dependencies -->
+    <!-- ============================================== -->
     <dependencyManagement>
         <!-- Dependencies NEED not be defined here! -->
     </dependencyManagement>
@@ -45,30 +45,40 @@
     </dependencies>
 
     <!-- Section Repositories -->
+    <!-- ============================================== -->
     <repositories>
         <repository>
             <id>coding.central</id>
             <name>Central is the 1st in row.</name>
             <url>https://repo.maven.apache.org/maven2</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
+                <checksumPolicy>warn</checksumPolicy>
             </snapshots>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
             </releases>
         </repository>
         <repository>
-            <id>coding.read</id>
-            <name>CASSI-Central Awesome Snap Shot Index</name>
-            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+            <id>coding.github-ss</id>
+            <name>ASS-Awesome Snap Shots</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <updatePolicy>interval:10</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
             </snapshots>
+        </repository>
+        <repository>
+            <id>coding.github</id>
+            <name>CAI-Central Awesome Index</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
             </releases>
         </repository>
     </repositories>
@@ -79,29 +89,38 @@
             <name>Central is the 1st in row.</name>
             <url>https://repo.maven.apache.org/maven2</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
+                <checksumPolicy>warn</checksumPolicy>
             </snapshots>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
             </releases>
         </pluginRepository>
         <pluginRepository>
-            <id>coding.read</id>
-            <name>CASSI-Central Awesome Snap Shot Index</name>
-            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+            <id>coding.github-ss</id>
+            <name>ASS-Awesome Snap Shots</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
             <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <enabled>false</enabled>
+                <checksumPolicy>warn</checksumPolicy>
             </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>coding.github</id>
+            <name>CAI-Central Awesome Index</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
             </releases>
         </pluginRepository>
     </pluginRepositories>
 
     <!-- Section Profiles -->
+    <!-- ============================================== -->
     <profiles>
         <!--
             Description     :   Generate the java api documentation
@@ -298,6 +317,96 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <!--
+                Description     :   Define settings for Gitlab
+             -->
+            <id>settings-gitlab</id>
+            <!--            <scm>-->
+            <!--                &lt;!&ndash;&ndash; scm-connections are defined as constant &ndash;&ndash;&gt;-->
+            <!--                <connection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</connection>-->
+            <!--                <developerConnection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</developerConnection>-->
+            <!--                <url>${project.env.CI_PROJECT_URL}</url>-->
+            <!--                <tag>HEAD</tag>-->
+            <!--            </scm>-->
+
+            <properties>
+                <!-- Gitlab Properties -->
+                <!-- ============================================== -->
+                <!-- The base url of the git-server -->
+                <vcs.env.BASE_URL>https://gitlab.com</vcs.env.BASE_URL>
+                <!-- This gitlab repository -->
+                <project.env.CI_PROJECT_NAME>${project.artifactId}</project.env.CI_PROJECT_NAME>
+                <!-- The ID of this gitlab repository -->
+                <project.env.CI_PROJECT_ID>31930670</project.env.CI_PROJECT_ID>
+                <!-- The organization of this gitlab repository -->
+                <project.env.CI_GROUP_NAME>the-oglow</project.env.CI_GROUP_NAME>
+                <!-- The ID of this organization of this gitlab repository -->
+                <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
+                <!-- The unique identifier of this project -->
+                <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}</project.env.CI_IDENTIFIER>
+                <!-- The base git-url of the organisation -->
+                <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>
+                <!-- The base git-url of this project -->
+                <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}</project.env.CI_PROJECT_URL>
+                <!-- ID of the Gitlab project for release repository -->
+                <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>
+                <!-- ID of the Gitlab project for snapshot repository -->
+                <repo.env.REPO_SNAP_ID>26363808</repo.env.REPO_SNAP_ID>
+            </properties>
+
+            <distributionManagement>
+                <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
+                <snapshotRepository>
+                    <id>coding.gitlab.deploy-ss</id>
+                    <name>ASS-Awesome Snap Shots</name>
+                    <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <repository>
+                    <id>coding.gitlab.deploy</id>
+                    <name>CAI-Central Awesome Index</name>
+                    <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
+                    <uniqueVersion>true</uniqueVersion>
+                </repository>
+            </distributionManagement>
+
+            <repositories>
+                <repository>
+                    <id>coding.gitlab</id>
+                    <name>CASSI-Central Awesome Snap Shot Index</name>
+                    <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>coding.gitlab</id>
+                    <name>CASSI-Central Awesome Snap Shot Index</name>
+                    <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
     </profiles>
 
