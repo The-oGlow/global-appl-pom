@@ -20,6 +20,7 @@
     <!-- ============================================== -->
     <name>Global Application POM</name>
     <description>The main pom for all my maven artifacts.</description>
+    <inceptionYear>2020</inceptionYear>
 
     <scm>
         <!-- scm-connections are defined as constant -->
@@ -32,6 +33,7 @@
     <!-- Section Properties -->
     <!-- ============================================== -->
     <properties>
+        <!-- Properties NEED not be defined here! -->
     </properties>
 
     <!-- Section Dependencies -->
