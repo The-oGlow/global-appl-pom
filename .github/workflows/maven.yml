@@ -79,7 +79,7 @@ jobs:
       - name: maven settings
         uses: s4u/maven-settings-action@v2
         with:
-          servers: '[{ "id": "coding.github-ss", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}]'
+          servers: '[{ "id": "coding.github-ss",  "username": "", "password": "${{ secrets.PCK_READ_TOKEN }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}]'
 
       - name: settings
         run: cat ${{ env.MVN_HOME_DIR }}/settings.xml
