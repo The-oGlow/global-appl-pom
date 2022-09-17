@@ -36,7 +36,8 @@ env:
   MVN_TEST_OPTS_N: -DskipTests=true -DskipITs=true
   MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
-  MVN_REPO_OPTS: -B -s "${{ github.workspace}}/.m2/settings.xml" -Dmaven.repo.local="${{ github.workspace}}/.repo"
+  MVN_REPO_OPTS: -B -s "${{ github.workspace}}/.m2/settings.xml"
+  # -Dmaven.repo.local="${{ github.workspace}}/.repo"
   MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
   MVN_OPTS_CLI: -fae
   MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
@@ -85,7 +86,7 @@ jobs:
           restore-keys: ${{ matrix.os }}-m2
 
       - name: sonarcloud scan
-        run: mvn $MVN_SIGN_OPTS $MVN_TEST_OPTS_N $MVN_OPTS_SONAR verify sonar:sonar
+        run: mvn $MVN_SIGN_OPTS $MVN_TEST_OPTS_N $MVN_OPTS_SONAR $MVN_REPO_OPTS verify sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
