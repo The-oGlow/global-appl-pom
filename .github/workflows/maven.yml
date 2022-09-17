@@ -23,7 +23,7 @@ env:
   GITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
 
   # Maven Common Configuration
-  MVN_USR_HOME: ${{ env.HOME }}
+  MVN_USR_HOME: ${{ HOME }}
   MVN_REPO_DIR: ~/.m2
   MVN_REPO_JOB_DIR: ${{ github.workspace }}/.repo
   MVN_SETT_OPTS: -B -s "${{ github.workspace}}/.m2/settings.xml"
