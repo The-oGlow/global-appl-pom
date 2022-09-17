@@ -90,8 +90,11 @@ jobs:
       - name: maven settings
         uses: s4u/maven-settings-action@v2.6.0
         
+      - name: settings
+        run: cat $HOME/.m2/settings.xml
+        
       - name: sonarcloud scan
-        run: mvn $MVN_SIGN_OPTS $MVN_TEST_OPTS_N $MVN_OPTS_SONAR $MVN_REPO_OPTSverify sonar:sonar
+        run: mvn $MVN_SIGN_OPTS $MVN_TEST_OPTS_N $MVN_OPTS_SONAR $MVN_REPO_OPTS verify sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
