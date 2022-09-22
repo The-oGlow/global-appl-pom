@@ -53,7 +53,7 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.0.2
         with:
           fetch-depth: 0
 
@@ -63,38 +63,36 @@ jobs:
           printenv | sort
 
       - name: setup JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v3.5.0
         with:
           java-version: '${{ matrix.version }}'
           distribution: '${{ matrix.distribution }}'
           architecture: x64
 
       - name: cache maven packages
-        uses: actions/cache@v3
+        uses: actions/cache@v3.0.8
         with:
           path: ${{ env.MVN_HOME_DIR }}
           key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ matrix.os }}-m2
 
-      - name: maven settings
-        uses: s4u/maven-settings-action@v2
-        with:
-          servers: |
-            [{ "id": "coding.github-ss", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}},
-            {"id": "coding.github", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}]
+      #- name: maven settings
+      #  uses: s4u/maven-settings-action@v2.6.0
+      #  with:
+      #    servers: '[{ "id": "coding.github-ss",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}, { "id": "coding.github.deploy-ss",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_WRITE_TOKEN }}" }}}}]'
 
-      - name: settings
-        run: cat ${{ env.MVN_HOME_DIR }}/settings.xml
+      #- name: show settings
+      #  run: cat ${{ env.MVN_HOME_DIR }}/settings.xml
 
       - name: cache sonarcloud packages
-        uses: actions/cache@v3
+        uses: actions/cache@v3.0.8
         with:
           path: ${{ env.SONAR_CACHE_DIR }}
           key: ${{ matrix.os }}-sonar
           restore-keys: ${{ matrix.os }}-sonar
 
       - name: sonarcloud scan
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_SONAR_OPTS }} verify sonar:sonar
+        run: mvn ${{ env.MVN_SETT_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_SONAR_OPTS }} verify sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.PCK_READ_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
