@@ -355,7 +355,6 @@
                     </releases>
                 </pluginRepository>
             </pluginRepositories>
-
         </profile>
         <profile>
             <!--
@@ -380,8 +379,6 @@
                 <!-- ============================================== -->
                 <!-- The ID of this gitlab repository -->
                 <project.env.CI_PROJECT_ID>31930670</project.env.CI_PROJECT_ID>
-                <!-- The ID of this organization of this gitlab repository -->
-                <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
             </properties>
 
             <!-- Section Repositories -->
@@ -421,7 +418,6 @@
                     </releases>
                 </pluginRepository>
             </pluginRepositories>
-
         </profile>
     </profiles>
 </project>
