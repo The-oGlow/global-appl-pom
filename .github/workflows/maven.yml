@@ -18,6 +18,7 @@ on:
 env:
   # Github Additional Configuration
   GITHUB_REPO_NAME: ${{ github.event.repository.name }}
+  GITHUB_ACTOR: ${{ github.actor }}
   GITHUB_PROJECT_DIR: ${{ github.workspace }}
   GITHUB_TARGET_DIR: ${{ github.workspace }}/target
   GITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
