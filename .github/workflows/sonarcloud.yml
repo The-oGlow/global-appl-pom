@@ -21,6 +21,7 @@ env:
   GITHUB_PROJECT_DIR: ${{ github.workspace }}
   GITHUB_TARGET_DIR: ${{ github.workspace }}/target
   GITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
+  GITHUB_UPLOAD_NAME: ${{ github.event.repository.name }}.zip
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PCK_READ_TOKEN: ${{ secrets.PCK_READ_TOKEN }}
   PCK_WRITE_TOKEN: ${{ secrets.PCK_WRITE_TOKEN }}
@@ -50,6 +51,7 @@ env:
   MVN_SONAR_OPTS: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   SONAR_CACHE_DIR: ~/.sonar/cache
   SONAR_HOST_URL: "https://sonarcloud.io"
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
   sonarcloud:
@@ -61,6 +63,13 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      #      - name: validate deploy repos
+      #        run: |
+      #          curl -fH "Authorization: Bearer ${{ secrets.PCK_READ_TOKEN }}"  "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+      #          curl -fH "Authorization: Bearer ${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+      #          curl -f -u "${{ env.GITHUB_ACTOR }}:${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+      #          curl -f -u "${{ env.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+
       - name: checkout
         uses: actions/checkout@v3.0.2
         with:
@@ -88,9 +97,9 @@ jobs:
       #- name: maven settings
       #  uses: s4u/maven-settings-action@v2.6.0
       #  with:
-      #          servers: '[{"id": "coding.github-ss", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}, {"id": "coding.github.deploy-ss", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}]'
+      #          servers: '[{"id": "coding.github.ss", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}, {"id": "coding.github.ss.deploy", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}]'
       #  with:
-      #    servers: '[{ "id": "coding.github-ss",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}, { "id": "coding.github.deploy-ss",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_WRITE_TOKEN }}" }}}}]'
+      #    servers: '[{ "id": "coding.github.ss",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}, { "id": "coding.github.ss.deploy",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_WRITE_TOKEN }}" }}}}]'
 
       #- name: show settings
       #  run: cat ${{ env.MVN_HOME_DIR }}/settings.xml
