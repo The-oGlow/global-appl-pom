@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,18 +19,19 @@
     <!-- ============================================== -->
     <name>Global Application POM</name>
     <description>The main pom for all my maven artifacts.</description>
+    <inceptionYear>2020</inceptionYear>
 
     <scm>
-        <!-- scm-connections are defined as constant -->
         <connection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</connection>
         <developerConnection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</developerConnection>
-        <url>${project.env.CI_PROJECT_URL}</url>
+        <url>${project.env.GH_PROJECT_URL}</url>
         <tag>HEAD</tag>
     </scm>
 
     <!-- Section Properties -->
     <!-- ============================================== -->
     <properties>
+        <!-- Properties NEED not be defined here! -->
     </properties>
 
     <!-- Section Dependencies -->
@@ -61,26 +61,6 @@
                 <checksumPolicy>warn</checksumPolicy>
             </releases>
         </repository>
-        <repository>
-            <id>coding.github-ss</id>
-            <name>ASS-Awesome Snap Shots</name>
-            <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>interval:10</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>coding.github</id>
-            <name>CAI-Central Awesome Index</name>
-            <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -92,25 +72,6 @@
                 <enabled>false</enabled>
                 <checksumPolicy>warn</checksumPolicy>
             </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>coding.github-ss</id>
-            <name>ASS-Awesome Snap Shots</name>
-            <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
-            <snapshots>
-                <enabled>false</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>coding.github</id>
-            <name>CAI-Central Awesome Index</name>
-            <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
@@ -320,11 +281,93 @@
         </profile>
         <profile>
             <!--
+                Description     :   Define settings for Github
+             -->
+            <id>settings-github</id>
+            <activation>
+                <property>
+                    <name>env.GITHUB_ACTOR</name>
+                </property>
+            </activation>
+
+            <!--            <scm>-->
+            <!--                <connection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</connection>-->
+            <!--                <developerConnection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</developerConnection>-->
+            <!--                <url>${project.env.GH_PROJECT_URL}</url>-->
+            <!--                <tag>HEAD</tag>-->
+            <!--            </scm>-->
+
+            <!-- Section Repositories -->
+            <!-- ============================================== -->
+            <repositories>
+                <repository>
+                    <id>coding.github.ss</id>
+                    <name>ASS-Awesome Snap Shots</name>
+                    <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </repository>
+                <repository>
+                    <id>coding.github</id>
+                    <name>CAI-Central Awesome Index</name>
+                    <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>coding.github.ss</id>
+                    <name>ASS-Awesome Snap Shots</name>
+                    <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>coding.github</id>
+                    <name>CAI-Central Awesome Index</name>
+                    <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
+            <!--
                 Description     :   Define settings for Gitlab
              -->
             <id>settings-gitlab</id>
+            <activation>
+                <property>
+                    <name>env.GITLAB_USER_LOGIN</name>
+                </property>
+            </activation>
+
             <!--            <scm>-->
-            <!--                &lt;!&ndash;&ndash; scm-connections are defined as constant &ndash;&ndash;&gt;-->
             <!--                <connection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</connection>-->
             <!--                <developerConnection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</developerConnection>-->
             <!--                <url>${project.env.CI_PROJECT_URL}</url>-->
@@ -334,44 +377,12 @@
             <properties>
                 <!-- Gitlab Properties -->
                 <!-- ============================================== -->
-                <!-- The base url of the git-server -->
-                <vcs.env.BASE_URL>https://gitlab.com</vcs.env.BASE_URL>
-                <!-- This gitlab repository -->
-                <project.env.CI_PROJECT_NAME>${project.artifactId}</project.env.CI_PROJECT_NAME>
                 <!-- The ID of this gitlab repository -->
                 <project.env.CI_PROJECT_ID>31930670</project.env.CI_PROJECT_ID>
-                <!-- The organization of this gitlab repository -->
-                <project.env.CI_GROUP_NAME>the-oglow</project.env.CI_GROUP_NAME>
-                <!-- The ID of this organization of this gitlab repository -->
-                <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
-                <!-- The unique identifier of this project -->
-                <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}</project.env.CI_IDENTIFIER>
-                <!-- The base git-url of the organisation -->
-                <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>
-                <!-- The base git-url of this project -->
-                <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}</project.env.CI_PROJECT_URL>
-                <!-- ID of the Gitlab project for release repository -->
-                <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>
-                <!-- ID of the Gitlab project for snapshot repository -->
-                <repo.env.REPO_SNAP_ID>26363808</repo.env.REPO_SNAP_ID>
             </properties>
 
-            <distributionManagement>
-                <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
-                <snapshotRepository>
-                    <id>coding.gitlab.deploy-ss</id>
-                    <name>ASS-Awesome Snap Shots</name>
-                    <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
-                    <uniqueVersion>false</uniqueVersion>
-                </snapshotRepository>
-                <repository>
-                    <id>coding.gitlab.deploy</id>
-                    <name>CAI-Central Awesome Index</name>
-                    <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
-                    <uniqueVersion>true</uniqueVersion>
-                </repository>
-            </distributionManagement>
-
+            <!-- Section Repositories -->
+            <!-- ============================================== -->
             <repositories>
                 <repository>
                     <id>coding.gitlab</id>
@@ -379,7 +390,7 @@
                     <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
                     <snapshots>
                         <enabled>true</enabled>
-                        <updatePolicy>interval:10</updatePolicy>
+                        <updatePolicy>always</updatePolicy>
                         <checksumPolicy>warn</checksumPolicy>
                     </snapshots>
                     <releases>
@@ -409,5 +420,4 @@
             </pluginRepositories>
         </profile>
     </profiles>
-
 </project>
