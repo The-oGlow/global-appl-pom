@@ -77,6 +77,8 @@
 :source-highlighter: highlight.js
 
 = {proj_module}
+
+image:https://api.codacy.com/project/badge/Grade/77fd5b2e35994f5a92599bdefe817127[link="https://app.codacy.com/gh/The-oGlow/global-appl-pom?utm_source=github.com&utm_medium=referral&utm_content=The-oGlow/global-appl-pom&utm_campaign=Badge_Grade_Settings"]
 :toc: preamble
 :toclevels: 2
 
