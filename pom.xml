@@ -83,11 +83,12 @@
     <!-- Section Profiles -->
     <!-- ============================================== -->
     <profiles>
-        <!--
-            Description     :   Generate the java api documentation
-            See             :   https://maven.apache.org/plugins/maven-javadoc-plugin/
-         -->
         <profile>
+            <!--
+                Description     :   Generate the java api documentation
+                See             :   https://maven.apache.org/plugins/maven-javadoc-plugin/
+                Syntax          :   automtically chosen
+             -->
             <id>build-javadoc</id>
             <build>
                 <plugins>
@@ -113,14 +114,14 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            Description     :   Signs the artifact
-            See             :   https://maven.apache.org/plugins/maven-jarsigner-plugin/
-            Syntax 1        :   mvn -Psign-jar clean [verify|install]
-            Syntax 2        :   mvn -Psign-jar,artifact-release clean deploy
-            Example 1       :   mvn -Psign-jar -DskipTests -DskipITs clean install
-         -->
         <profile>
+            <!--
+                Description     :   Signs the artifact
+                See             :   https://maven.apache.org/plugins/maven-jarsigner-plugin/
+                Syntax 1        :   mvn -Psign-jar clean [verify|install]
+                Syntax 2        :   mvn -Psign-jar,artifact-release clean deploy
+                Example 1       :   mvn -Psign-jar -DskipTests -DskipITs clean install
+             -->
             <id>sign-jar</id>
             <properties>
                 <!--suppress UnresolvedMavenProperty -->
@@ -208,10 +209,13 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            Description     :   Generate a separate jar for test classes
-         -->
         <profile>
+            <!--
+                Description     :   Generate a separate jar for test classes
+                See             :   https://maven.apache.org/plugins/maven-jar-plugin/
+                                    https://maven.apache.org/plugins/maven-source-plugin/
+                Syntax          :   automtically chosen
+             -->
             <id>build-testjar</id>
             <build>
                 <plugins>
@@ -242,30 +246,19 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            Description     :   Adds a license text to every java class
-            See             :   https://www.mojohaus.org/license-maven-plugin/
-         -->
         <profile>
+            <!--
+                Description     :   Adds a license text to every java class
+                See             :   https://www.mojohaus.org/license-maven-plugin/
+                Syntax          :   mvn -Plicense-header [compile]
+                Example         :   mvn -Plicense-header compile
+             -->
             <id>license-header</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>license-maven-plugin</artifactId>
-                        <configuration>
-                            <licenseName>apache_v2</licenseName>
-                            <roots>
-                                <root>src/main/java</root>
-                                <root>src/test/java</root>
-                            </roots>
-                            <includes>
-                                <include>**/*.java</include>
-                            </includes>
-                            <canUpdateCopyright>true</canUpdateCopyright>
-                            <canUpdateLicense>true</canUpdateLicense>
-                            <canUpdateDescription>true</canUpdateDescription>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>first</id>
@@ -273,6 +266,11 @@
                                 <goals>
                                     <goal>update-file-header</goal>
                                 </goals>
+                                <configuration>
+                                    <canUpdateCopyright>true</canUpdateCopyright>
+                                    <canUpdateLicense>true</canUpdateLicense>
+                                    <canUpdateDescription>true</canUpdateDescription>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -282,6 +280,7 @@
         <profile>
             <!--
                 Description     :   Define settings for Github
+                Syntax          :   automtically chosen
              -->
             <id>settings-github</id>
             <activation>
@@ -290,16 +289,18 @@
                 </property>
             </activation>
 
-            <!--            <scm>-->
-            <!--                <connection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</connection>-->
-            <!--                <developerConnection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</developerConnection>-->
-            <!--                <url>${project.env.GH_PROJECT_URL}</url>-->
-            <!--                <tag>HEAD</tag>-->
-            <!--            </scm>-->
+            <!-- <scm>-->
+            <!-- <connection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</connection>-->
+            <!-- <developerConnection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</developerConnection>-->
+            <!-- <url>${project.env.GH_PROJECT_URL}</url>-->
+            <!-- <tag>HEAD</tag>-->
+            <!-- </scm>-->
+
         </profile>
         <profile>
             <!--
                 Description     :   Define settings for Gitlab
+                Syntax          :   automtically chosen
              -->
             <id>settings-gitlab</id>
             <activation>
@@ -308,12 +309,12 @@
                 </property>
             </activation>
 
-            <!--            <scm>-->
-            <!--                <connection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</connection>-->
-            <!--                <developerConnection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</developerConnection>-->
-            <!--                <url>${project.env.CI_PROJECT_URL}</url>-->
-            <!--                <tag>HEAD</tag>-->
-            <!--            </scm>-->
+            <!--<scm>-->
+            <!--<connection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</connection>-->
+            <!--<developerConnection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</developerConnection>-->
+            <!--<url>${project.env.CI_PROJECT_URL}</url>-->
+            <!--<tag>HEAD</tag>-->
+            <!--</scm>-->
 
             <properties>
                 <!-- Gitlab Properties -->
