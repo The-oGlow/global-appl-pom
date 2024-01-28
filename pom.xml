@@ -83,6 +83,13 @@
     <!-- Section Profiles -->
     <!-- ============================================== -->
     <profiles>
+        <!-- ==
+             == How to handle:
+             == 1) Profiles are NOT allowed to us "activated by default".
+             == 2) Profiles are added in alphabetic order by the profile-id-tag inside the profiles-tag.
+             == 3) Properties, which are only used inside the profile, are defined in the profile, not pom-globally.
+             == 4) Configurations, which are only used inside an execution, are defined in the execution, not profile-globally.
+             == -->
         <profile>
             <!--
                 Description     :   Generate the java api documentation
