@@ -6,13 +6,13 @@
     <parent>
         <groupId>com.glowa-net.maven.parent</groupId>
         <artifactId>global-pom</artifactId>
-        <version>3-SNAPSHOT</version>
+        <version>4-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
     <groupId>com.glowa-net.maven.parent</groupId>
     <artifactId>global-appl-pom</artifactId>
-    <version>3-SNAPSHOT</version>
+    <version>4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <!-- Section Common -->
@@ -303,32 +303,6 @@
             <!-- <tag>HEAD</tag>-->
             <!-- </scm>-->
 
-        </profile>
-        <profile>
-            <!--
-                Description     :   Define settings for Gitlab
-                Syntax          :   automtically chosen
-             -->
-            <id>settings-gitlab</id>
-            <activation>
-                <property>
-                    <name>env.GITLAB_USER_LOGIN</name>
-                </property>
-            </activation>
-
-            <!--<scm>-->
-            <!--<connection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</connection>-->
-            <!--<developerConnection>scm:git:https://gitlab.com/The-oGlow/global-appl-pom.git</developerConnection>-->
-            <!--<url>${project.env.CI_PROJECT_URL}</url>-->
-            <!--<tag>HEAD</tag>-->
-            <!--</scm>-->
-
-            <properties>
-                <!-- Gitlab Properties -->
-                <!-- ============================================== -->
-                <!-- The ID of this gitlab repository -->
-                <project.env.CI_PROJECT_ID>31930670</project.env.CI_PROJECT_ID>
-            </properties>
         </profile>
     </profiles>
 </project>
