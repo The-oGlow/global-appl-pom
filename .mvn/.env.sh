@@ -36,16 +36,17 @@ MVN_TEST_OPTS_Y="-DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=t
 # Maven Deploy Configuration
 MVN_DEPLOY_OPTS="-DfastBuild -DretryFailedDeploymentCount=5"
 
-# Maven Goal Options
-MVN_CMD_CLI_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} -ff"
-MVN_CMD_BUILD_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} -fae"
-MVN_CMD_DEPLOY_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} ${MVN_DEPLOY_OPTS}"
-
 # Sonarcloud Configuration
 SONAR_TOKEN=${SONAR_TOKEN}
 SONAR_CACHE_DIR="${HOME}/.sonar/cache"
 SONAR_HOST_URL="https://sonarcloud.io"
-MVN_SONAR_OPTS="-Dsonar.qualitygate.wait=false -Dsonar.login=\"${SONAR_TOKEN}\""
+MVN_SONAR_OPTS="-DfastBuild -Dsonar.qualitygate.wait=false -Dsonar.token=${SONAR_TOKEN}"
+
+# Maven Goal Options
+MVN_CMD_CLI_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} -ff"
+MVN_CMD_BUILD_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} -fae"
+MVN_CMD_DEPLOY_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} ${MVN_DEPLOY_OPTS}"
+MVN_CMD_SONAR_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} ${MVN_SONAR_OPTS}"
 
 # Codacy Configuration
 CODACY_PROJECT_TOKEN=${CODACY_PROJECT_TOKEN}
