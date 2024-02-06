@@ -284,17 +284,5 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <!--
-                Description     :   Define settings for Github
-                Syntax          :   automtically chosen
-             -->
-            <id>settings-github</id>
-            <activation>
-                <property>
-                    <name>env.GITHUB_ACTOR</name>
-                </property>
-            </activation>
-        </profile>
     </profiles>
 </project>
