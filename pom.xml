@@ -92,6 +92,25 @@
              == -->
         <profile>
             <!--
+                Description     :   Define settings for Github
+             -->
+            <id>settings-github</id>
+            <activation>
+                <property>
+                    <name>env.GITHUB_ACTOR</name>
+                </property>
+            </activation>
+            <!--
+                <scm>
+                    <connection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</connection>
+                    <developerConnection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</developerConnection>
+                    <url>${project.env.GH_PROJECT_URL}</url>
+                    <tag>HEAD</tag>
+                </scm>
+            -->
+        </profile>
+        <profile>
+            <!--
                 Description     :   Generate the java api documentation
                 See             :   https://maven.apache.org/plugins/maven-javadoc-plugin/
                 Syntax          :   automtically chosen
