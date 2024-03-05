@@ -14,7 +14,7 @@
           <option name="mavenProperties">
             <map>
               <entry key="maven.test.failure.ignore" value="true" />
-              <entry key="skipITs" value="false" />
+              <entry key="skipITs" value="true" />
               <entry key="sonar.token" value="${SONAR_TOKEN}" />
             </map>
           </option>
