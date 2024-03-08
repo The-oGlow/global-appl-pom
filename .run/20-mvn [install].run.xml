@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="55-mvn [site]" type="MavenRunConfiguration" factoryName="Maven" folderName="artifact">
+  <configuration default="false" name="20-mvn [install]" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -11,6 +11,7 @@
           <option name="jreName" value="#USE_PROJECT_JDK" />
           <option name="mavenProperties">
             <map>
+              <entry key="fastBuild" value="fastBuild" />
               <entry key="skipITs" value="true" />
             </map>
           </option>
@@ -28,7 +29,8 @@
           </option>
           <option name="goals">
             <list>
-              <option value="site" />
+              <option value="clean" />
+              <option value="install" />
             </list>
           </option>
           <option name="multimoduleDir" />
