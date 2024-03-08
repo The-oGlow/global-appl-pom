@@ -100,14 +100,6 @@
                     <name>env.GITHUB_ACTOR</name>
                 </property>
             </activation>
-            <!--
-                <scm>
-                    <connection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</connection>
-                    <developerConnection>scm:git:https://github.com/The-oGlow/global-appl-pom.git</developerConnection>
-                    <url>${project.env.GH_PROJECT_URL}</url>
-                    <tag>HEAD</tag>
-                </scm>
-            -->
         </profile>
         <profile>
             <!--
